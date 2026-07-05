@@ -11,3 +11,4 @@ matplotlib==3.10.6
 midi2audio==0.1.1
 
 python-dotenv==1.1.1
+gunicorn==23.0.0
