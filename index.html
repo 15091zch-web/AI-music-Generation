@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🎵 AI Music Generator</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo">
+            🎵 AI Music Generator
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#generator" class="nav-link">Generator</a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+
+<header class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Create Amazing Music with Artificial Intelligence</h1>
+
+        <p class="hero-subtitle">
+            Deep Learning Music Generator using TensorFlow, LSTM Neural Networks and Music21 Library.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn btn-primary"
+                onclick="document.getElementById('generator').scrollIntoView({behavior:'smooth'})">
+                🎵 Start Creating
+            </button>
+
+            <button class="btn btn-secondary"
+                onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+                🚀 Learn More
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features" id="features">
+
+<div class="container">
+
+<h2 class="section-title">Why Choose This AI Music Generator?</h2>
+
+<div class="features-grid">
+
+    <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>Deep Learning</h3>
+        <p>Powered by TensorFlow and LSTM Neural Networks.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🎼</div>
+        <h3>Music Generation</h3>
+        <p>Generate completely new melodies automatically.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🎹</div>
+        <h3>Dataset</h3>
+        <p>Model trained using real MIDI music dataset.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast Performance</h3>
+        <p>Generate music in only a few seconds.</p>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= GENERATOR ================= -->
+
+<section class="app-section" id="generator">
+
+<div class="container">
+
+<h2 class="section-title">AI Music Generator</h2>
+
+<div class="app-grid">
+
+<!-- ================= TRAIN CARD ================= -->
+
+<div class="app-card">
+
+    <div class="card-header">
+        <h3>🧠 Train AI Model</h3>
+    </div>
+
+    <div class="card-body">
+
+        <label>Dataset Path</label>
+
+        <input type="text"
+            id="datasetPath"
+            class="input-field"
+            value="./dataset">
+
+        <button class="btn btn-primary btn-block" onclick="trainModel()">
+            Train Model
+        </button>
+
+        <div id="trainStatus" class="status-message"></div>
+
+    </div>
+
+</div>
+
+<!-- ================= GENERATE CARD ================= -->
+
+<div class="app-card">
+
+    <div class="card-header">
+        <h3>🎵 Generate Music</h3>
+    </div>
+
+    <div class="card-body">
+
+        <label>Number of Notes</label>
+
+        <input type="range"
+            id="numNotes"
+            min="50"
+            max="500"
+            value="100"
+            class="slider"
+            oninput="updateNoteValue(this.value)">
+
+        <div class="slider-value">
+            <span id="noteValue">100</span> Notes
+        </div>
+
+        <!-- GENRE SELECTOR -->
+        <label>Genre</label>
+        <select id="genre" class="input-field">
+            <option value="classical">🎻 Classical</option>
+            <option value="jazz">🎷 Jazz</option>
+            <option value="pop">🎹 Pop</option>
+        </select>
+
+        <button class="btn btn-success btn-block" onclick="generateMusic()">
+            Generate Music
+        </button>
+
+        <div id="generateStatus" class="status-message"></div>
+
+    </div>
+
+</div>
+
+<!-- ================= CONVERT CARD ================= -->
+
+<div class="app-card">
+
+    <div class="card-header">
+        <h3>🎧 Convert to Audio</h3>
+    </div>
+
+    <div class="card-body">
+
+        <label>MIDI File</label>
+
+        <input type="text"
+            id="midiFile"
+            value="generated_music.mid"
+            class="input-field">
+
+        <button class="btn btn-info btn-block" onclick="convertMIDI()">
+            Convert to WAV
+        </button>
+
+        <div id="convertStatus" class="status-message"></div>
+
+        <!-- MP3 DOWNLOAD -->
+        <button class="btn btn-warning btn-block" onclick="downloadMP3()">
+            ⬇️ Download MP3
+        </button>
+
+        <div id="downloadStatus" class="status-message"></div>
+<div id="logs"></div>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= STATS ================= -->
+
+<section class="features">
+
+<div class="container">
+
+<h2 class="section-title">Project Statistics</h2>
+
+<div class="features-grid">
+
+    <div class="feature-card">
+        <div class="feature-icon">🎼</div>
+        <h3>63+</h3>
+        <p>MIDI Songs</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🎹</div>
+        <h3>10820+</h3>
+        <p>Music Notes</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>LSTM</h3>
+        <p>Deep Learning</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>TensorFlow</h3>
+        <p>AI Framework</p>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <h2>🎵 AI Music Generator</h2>
+
+    <p>Developed using Flask, TensorFlow, LSTM, Music21 and Python.</p>
+
+    <p>© 2026 AI Music Generator | Developed by Zakia</p>
+
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
